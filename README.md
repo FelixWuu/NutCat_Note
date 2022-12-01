@@ -1,0 +1,2 @@
+# GoNote
+my golang note
