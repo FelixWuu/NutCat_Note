@@ -1,6 +1,8 @@
 package variable
 
-import "fmt"
+import (
+	"fmt"
+)
 
 var a int     // 自动初始化为 0
 var b = false // 自动推断为 bool 类型
@@ -85,4 +87,59 @@ func Case4() {
 
 func test(n byte) {
 	println(n)
+}
+
+// 题外话：为什么更推荐使用无类型常量？
+type myInt int
+
+const (
+	n myInt = 100
+	//m int = n + 50  // 提示 Cannot use 'n + 50' (type myInt) as the type int
+	m int = int(n) + 50
+)
+
+const (
+	num = 5
+	pi  = 3.141596253
+	str = "Hello world"
+)
+
+type myInt2 int
+type myString string
+type myFloat float32
+
+var (
+	v1 myInt2   = num
+	v2 myFloat  = pi
+	v3 myString = str
+	v4 float64  = num * pi
+)
+
+// 小知识：零值可用
+func Case5() {
+	var defaultSlice []int
+
+	// 这里不会显示有错误，但是运行起来就会报错了：
+	// panic: runtime error: index out of range [0] with length 0
+	//defaultSlice[0] = 1
+
+	defaultSlice = append(defaultSlice, 1)
+	defaultSlice = append(defaultSlice, 2)
+	defaultSlice = append(defaultSlice, 3)
+
+	fmt.Println(defaultSlice)
+
+	var defaultMap map[string]string
+
+	// 这里也会报错，因为 map 声明后未赋值自身会被赋予默认值 nil，并没有对其内部支持零值可用
+	// panic: assignment to entry in nil map
+	//defaultMap["str1"] = "golang"
+
+	defaultMap = make(map[string]string)
+	defaultMap["str1"] = "golang"
+
+	// 这里报错原因是因为值复制
+	//var defaultMutex sync.Mutex
+	//mutex1 := defaultMutex
+	// do something with mutex1
 }

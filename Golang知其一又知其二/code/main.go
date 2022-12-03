@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func main() {
+func variableCases() {
 	fmt.Println("---------- case1 ----------")
 	variable.Case1()
 
@@ -17,4 +17,11 @@ func main() {
 
 	fmt.Println("\n---------- case4 ----------")
 	variable.Case4()
+
+	fmt.Println("\n---------- case5 ----------")
+	variable.Case5()
+}
+
+func main() {
+	variableCases()
 }
